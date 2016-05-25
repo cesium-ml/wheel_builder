@@ -4,7 +4,7 @@ set -e
 
 source /io/manylinux-builds/common_vars.sh
 
-git clone https://github.com/MacPython/terryfy.git
+git clone --depth=1 https://github.com/MacPython/terryfy.git
 source terryfy/travis_tools.sh
 
 function cpython_path {

@@ -3,7 +3,7 @@
 set -e
 
 if [[ ! -d manylinux-builds ]]; then
-    git clone https://github.com/matthew-brett/manylinux-builds
+    git clone --depth=1 https://github.com/matthew-brett/manylinux-builds
 fi
 
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then

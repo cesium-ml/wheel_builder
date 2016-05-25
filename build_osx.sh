@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -e
+
 source /io/manylinux-builds/common_vars.sh
 
 git clone https://github.com/MacPython/terryfy.git

@@ -9,7 +9,7 @@ for PYTHON in ${PYTHON_VERSIONS}; do
 
         $PIP install -f tmp "numpy==$NUMPY_VERSION"
 
-        $PIP wheel -f tmp -w unfixed_wheels \
+        $PIP wheel -f tmp -w unfixed_wheels --no-deps \
             --no-binary cesium \
             "numpy==$NUMPY_VERSION" \
             "cesium==$CESIUM"

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 git clone https://github.com/matthew-brett/manylinux-builds
 
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then

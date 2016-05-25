@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 if [[ ! -d manylinux-builds ]]; then
     git clone https://github.com/matthew-brett/manylinux-builds

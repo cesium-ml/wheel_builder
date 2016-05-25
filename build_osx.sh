@@ -1,11 +1,12 @@
 #!/bin/bash
 
-set -e
+set -ex
 
-source /io/manylinux-builds/common_vars.sh
+export IO_PATH=$PWD  # Used by common_vars to determine wheelhouse
+source common_vars.sh
 
-git clone --depth=1 https://github.com/MacPython/terryfy.git
-source terryfy/travis_tools.sh
+curl -OL https://raw.githubusercontent.com/MacPython/terryfy/master/travis_tools.sh
+source travis_tools.sh
 
 function cpython_path {
     echo "/venv-$1"

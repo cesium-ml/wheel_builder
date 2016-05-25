@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-source /io/manylinux-builds/common_vars.sh
+source /io/common_vars.sh
 rm_mkdir unfixed_wheels
 
 source /io/pip_build_wheels.sh

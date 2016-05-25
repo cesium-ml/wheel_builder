@@ -1,14 +1,11 @@
 #!/bin/bash
 
-set -ex
+set -e
 
-if [[ ! -d manylinux-builds ]]; then
-    git clone --depth=1 https://github.com/matthew-brett/manylinux-builds
-fi
+curl -OL https://raw.githubusercontent.com/matthew-brett/manylinux-builds/master/common_vars.sh
 
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     source ./build_osx.sh
-    source ./pip_build_wheels.sh
 else
     DOCKER_IMAGE=quay.io/pypa/manylinux1_x86_64
     docker pull $DOCKER_IMAGE

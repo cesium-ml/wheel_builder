@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 if [[ ! -d manylinux-builds ]]; then
     git clone --depth=1 https://github.com/matthew-brett/manylinux-builds

@@ -25,7 +25,7 @@ before_deploy:
 
 deploy:
   provider: cloudfiles
-  username: travis-worker
+  username: scikit-image
   region: ORD
   container: wheels
   skip_cleanup: true

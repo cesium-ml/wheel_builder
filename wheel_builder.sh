@@ -1,9 +1,25 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 mkdir wheelhouse
 rm -rf wheelhouse/*
+
+
+function fake_pip {
+    # 'get_python_environment' tries to do
+    #   sudo pip uninstall -y pip
+    #
+    # So, after it has done that once, pip is gone.  This is a workaround to
+    # make a fake pip available.
+
+    mkdir -p /usr/local/bin
+    echo "echo system pip called with: \$@" > /usr/local/bin/pip
+    chmod +x /usr/local/bin/pip
+    export PATH=$PATH:/usr/local/bin
+    fi
+}
+
 
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     WORK_DIR=$PWD
@@ -19,8 +35,11 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     rm -rf unfixed_wheels/*
 
     for PYTHON in ${PYTHON_VERSIONS}; do
+        fake_pip
+
         get_python_environment macpython $PYTHON "$(cpython_path $PYTHON)"
-        pip install delocate numpy==$NUMPY_VERSION cython
+        source "$(cpython_path $PYTHON)/bin/activate"
+        pip install delocate numpy==$NUMPY_VERSION cython virtualenv
     done
 
     source pip_build_wheels.sh
@@ -28,7 +47,7 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     delocate-listdeps unfixed_wheels/*
     delocate-wheel unfixed_wheels/*.whl
     delocate-addplat --rm-orig -x 10_9 -x 10_10 dist/*.whl
-    mv unfixed_wheels/*.whl $WHEELHOUSE
+    mv unfixed_wheels/*.whl wheelhouse
 
 else
 
@@ -42,3 +61,6 @@ else
            -e CESIUM_VERSIONS="$CESIUM_VERSIONS" \
            -v $PWD:/io $DOCKER_IMAGE /io/build_manylinux.sh
 fi
+
+# Remove non-cesium wheels
+find ./wheelhouse -type f ! -name "cesium*.whl" -delete

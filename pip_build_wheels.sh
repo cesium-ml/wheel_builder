@@ -7,11 +7,11 @@ for PYTHON in ${PYTHON_VERSIONS}; do
     for CESIUM in ${CESIUM_VERSIONS}; do
         echo "Building cesium $CESIUM for Python $PYTHON"
 
-        pip install -w tmp "numpy==$NUMPY_VERSION"
+        $PIP install -f tmp "numpy==$NUMPY_VERSION"
 
-        pip wheel -f tmp -w unfixed_wheels \
+        $PIP wheel -f tmp -w unfixed_wheels \
             --no-binary cesium \
             "numpy==$NUMPY_VERSION" \
-            "cesium==$CESIUM_VERSION"
+            "cesium==$CESIUM"
     done
 done

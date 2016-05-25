@@ -18,7 +18,7 @@ matrix:
       language: objective-c
 
 script:
-  - wheel_builder.sh
+  - source ./wheel_builder.sh
 
 before_deploy:
     cd wheelhouse

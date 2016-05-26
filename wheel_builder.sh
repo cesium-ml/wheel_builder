@@ -19,9 +19,8 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     mkdir -p unfixed_wheels
     rm -rf unfixed_wheels/*
 
-    get_python_environment macpython 2.7
-
     for PYTHON in ${PYTHON_VERSIONS}; do
+        get_python_environment system
         get_python_environment macpython $PYTHON "$(cpython_path $PYTHON)"
         source "$(cpython_path $PYTHON)/bin/activate"
         pip install delocate numpy==$NUMPY_VERSION cython virtualenv

@@ -17,7 +17,6 @@ function fake_pip {
     echo "echo system pip called with: \$@" > /usr/local/bin/pip
     chmod +x /usr/local/bin/pip
     export PATH=$PATH:/usr/local/bin
-    fi
 }
 
 

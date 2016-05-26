@@ -6,20 +6,6 @@ mkdir wheelhouse
 rm -rf wheelhouse/*
 
 
-function fake_pip {
-    # 'get_python_environment' tries to do
-    #   sudo pip uninstall -y pip
-    #
-    # So, after it has done that once, pip is gone.  This is a workaround to
-    # make a fake pip available.
-
-    mkdir -p /usr/local/bin
-    echo "echo system pip called with: \$@" > /usr/local/bin/pip
-    chmod +x /usr/local/bin/pip
-    export PATH=$PATH:/usr/local/bin
-}
-
-
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     WORK_DIR=$PWD
 
@@ -33,9 +19,9 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     mkdir -p unfixed_wheels
     rm -rf unfixed_wheels/*
 
-    for PYTHON in ${PYTHON_VERSIONS}; do
-        fake_pip
+    get_python_environment macpython 2.7
 
+    for PYTHON in ${PYTHON_VERSIONS}; do
         get_python_environment macpython $PYTHON "$(cpython_path $PYTHON)"
         source "$(cpython_path $PYTHON)/bin/activate"
         pip install delocate numpy==$NUMPY_VERSION cython virtualenv

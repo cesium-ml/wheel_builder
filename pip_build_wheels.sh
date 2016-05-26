@@ -3,6 +3,7 @@
 set -e
 
 for PYTHON in ${PYTHON_VERSIONS}; do
+    ls "$(cpython_path $PYTHON)/bin"
     PIP="$(cpython_path $PYTHON)/bin/pip"
     for CESIUM in ${CESIUM_VERSIONS}; do
         echo "Building cesium $CESIUM for Python $PYTHON"

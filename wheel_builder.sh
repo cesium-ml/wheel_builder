@@ -39,6 +39,7 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
         get_python_environment macpython $PYTHON "$(cpython_path $PYTHON)"
         source "$(cpython_path $PYTHON)/bin/activate"
         pip install delocate numpy==$NUMPY_VERSION cython virtualenv
+        deactivate
     done
 
     source pip_build_wheels.sh

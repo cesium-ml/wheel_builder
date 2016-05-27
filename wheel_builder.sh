@@ -29,7 +29,7 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
         mkdir -p /usr/local/bin
         echo "echo system pip called with: \$@" > /usr/local/bin/pip
         chmod +x /usr/local/bin/pip
-        cp /usr/local/bin/pip /usr/bin/pip
+        sudo cp /usr/local/bin/pip /usr/bin/pip
     }
 
     fake_pip

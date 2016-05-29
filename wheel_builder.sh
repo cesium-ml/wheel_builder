@@ -2,7 +2,7 @@
 
 set -ex
 
-mkdir wheelhouse
+mkdir -p wheelhouse tmp
 rm -rf wheelhouse/*
 
 
@@ -26,15 +26,14 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
         # So, after it has done that once, pip is gone.  This is a workaround to
         # make a fake pip available.
 
-        mkdir -p /usr/local/bin
-        echo "echo system pip called with: \$@" > /usr/local/bin/pip
-        chmod +x /usr/local/bin/pip
-        sudo cp /usr/local/bin/pip /usr/bin/pip
+        sudo mkdir -p /usr/local/bin
+        echo "echo system pip called with: \$@" | sudo tee /usr/local/bin/pip
+        sudo chmod +x /usr/local/bin/pip
+        export PATH=/usr/local/bin:$PATH
     }
 
-    fake_pip
-
     for PYTHON in ${PYTHON_VERSIONS}; do
+	fake_pip
         get_python_environment macpython $PYTHON "$(cpython_path $PYTHON)"
         source "$(cpython_path $PYTHON)/bin/activate"
         pip install delocate numpy==$NUMPY_VERSION cython virtualenv
@@ -43,9 +42,11 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
 
     source pip_build_wheels.sh
 
+    read PYTHON _ <<< $PYTHON_VERSIONS
+    source "$(cpython_path $PYTHON)/bin/activate"
     delocate-listdeps unfixed_wheels/*
     delocate-wheel unfixed_wheels/*.whl
-    delocate-addplat --rm-orig -x 10_9 -x 10_10 dist/*.whl
+    delocate-addplat -c --rm-orig -x 10_9 -x 10_10 -x 10_11 unfixed_wheels/*.whl
     mv unfixed_wheels/*.whl wheelhouse
 
 else

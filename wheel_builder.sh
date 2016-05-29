@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 mkdir -p wheelhouse tmp
 rm -rf wheelhouse/*

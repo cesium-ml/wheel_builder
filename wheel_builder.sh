@@ -19,25 +19,10 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     mkdir -p unfixed_wheels
     rm -rf unfixed_wheels/*
 
-    function fake_pip {
-        # 'get_python_environment' tries to do
-        #   sudo pip uninstall -y pip
-        #
-        # So, after it has done that once, pip is gone.  This is a workaround to
-        # make a fake pip available.
-
-        sudo mkdir -p /usr/local/bin
-        echo "echo system pip called with: \$@" | sudo tee /usr/local/bin/pip
-        sudo chmod +x /usr/local/bin/pip
-        export PATH=/usr/local/bin:$PATH
-    }
-
     for PYTHON in ${PYTHON_VERSIONS}; do
-	fake_pip
         get_python_environment macpython $PYTHON "$(cpython_path $PYTHON)"
         source "$(cpython_path $PYTHON)/bin/activate"
         pip install delocate numpy==$NUMPY_VERSION cython virtualenv
-        deactivate
     done
 
     source pip_build_wheels.sh

@@ -1,33 +1,51 @@
+# See https://github.com/matthew-brett/multibuild
+
 env:
   global:
-    - CESIUM_VERSIONS="0.4"
-    - NUMPY_VERSION="1.10.4"
-    - PYTHON_VERSIONS="2.7 3.5"
+    - REPO-DIR=cesium
+    - BUILD_COMMIT=v0.6.5
+    - BUILD_DEPENDS="Cython numpy"
+    - TEST_DEPENDS="nosetests pytest"
+    - PLAT=x86_64
+    - UNICODE_WIDTH=32
+    - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
+    - secure:
+        "E+O2CWuv8TFtfa5pTzFES2ZtIWZ8xEo6/otSTT2tfOndWif5Fg5nILyzHxh3EZOw4xne/LoGl4kKQhDd/CLd61WGvk5db37DSSZt7B7GBPDdJXEkoWhrvhs/X6sfuu/Kb19qWmJgSfq1Zg+kXjM2ABwGhBLAfLp15TndrSOAUij7nhUN7lJazmaPdlujAGIUTVCjINy/r9SlFtAF20gVSuIpOslx7ZD49eTqXmZT/ZtfMsymQhY5EKMXxMNEgyCpecK5MEhNEzjqlnHdzVHiclgILbpDetpZGXf8oEWc+TKpVBUpNg++6MARBXPoSpK9GUB2kLJ+W9/P9CVwPt2lCjzwp33YAzjzUf0FPre6hdDYM1svn20RM0jtt0cMoIHyUKFc7LUK+F0aFxTH4gSduoyIpC+JBQOJkToZZWOv0kmLjJUkQPkpTA1Su2yyma+PYWayIeZk39YD8L6qQn3pAY5ppc/o9qnBuMk4g/CWTiCaFuHK2DnIBFK2VRhs/QUg8boQtuP69qfztX5UtUpCCPzv58MKYiMZM66InyV5BLD0kSornMGGdsPM4f9U9jEECHg31lP72DglN7jkHJdRLESTUw6SMXwfnYc8om2EM1FNA5pGW5mUfGZq8KJNnlylmjvk7/rlwXvBwCpYq97/0+cTqIU+QSGAL8Q2xjUils4="
 
-matrix:
-  include:
-    - os: linux
-      language: python
-      dist: trusty
-      sudo: required
-      services:
-        - docker
+language: python
+python: 3.5
+sudo: required
+dist: trusty
+services: docker
 
-    - os: osx
-      osx_image: xcode7.3
-      language: objective-c
+exclude:
+ # Exclude the default Python 3.5 build
+ - python: 3.5
+
+include:
+ - os: linux
+   env:
+     - MB_PYTHON_VERSION=3.5
+
+ - os: osx
+   language: generic
+   env:
+     - MB_PYTHON_VERSION=3.5
+
+before_install:
+    # Maybe get and clean and patch source
+    - clean_code $REPO_DIR $BUILD_COMMIT
+    - build_wheel $REPO_DIR $PLAT
 
 script:
-  - source ./wheel_builder.sh
+    - install_run $PLAT
 
-before_deploy:
-    cd wheelhouse
+after_success:
+    # Upload wheels to Rackspace
+    - pip install wheelhouse-uploader
+    # This uploads the wheels to a Rackspace container owned by the
+    # scikit-learn team, available at http://wheels.scipy.org.  See
+    # above for information on using this account or choosing another.
+    - python -m wheelhouse_uploader upload --local-folder \
+      ${TRAVIS_BUILD_DIR}/wheelhouse/ --no-update-index wheels
 
-deploy:
-  provider: cloudfiles
-  username: scikit-image
-  region: ORD
-  container: wheels
-  skip_cleanup: true
-  api-key:
-    secure: E+O2CWuv8TFtfa5pTzFES2ZtIWZ8xEo6/otSTT2tfOndWif5Fg5nILyzHxh3EZOw4xne/LoGl4kKQhDd/CLd61WGvk5db37DSSZt7B7GBPDdJXEkoWhrvhs/X6sfuu/Kb19qWmJgSfq1Zg+kXjM2ABwGhBLAfLp15TndrSOAUij7nhUN7lJazmaPdlujAGIUTVCjINy/r9SlFtAF20gVSuIpOslx7ZD49eTqXmZT/ZtfMsymQhY5EKMXxMNEgyCpecK5MEhNEzjqlnHdzVHiclgILbpDetpZGXf8oEWc+TKpVBUpNg++6MARBXPoSpK9GUB2kLJ+W9/P9CVwPt2lCjzwp33YAzjzUf0FPre6hdDYM1svn20RM0jtt0cMoIHyUKFc7LUK+F0aFxTH4gSduoyIpC+JBQOJkToZZWOv0kmLjJUkQPkpTA1Su2yyma+PYWayIeZk39YD8L6qQn3pAY5ppc/o9qnBuMk4g/CWTiCaFuHK2DnIBFK2VRhs/QUg8boQtuP69qfztX5UtUpCCPzv58MKYiMZM66InyV5BLD0kSornMGGdsPM4f9U9jEECHg31lP72DglN7jkHJdRLESTUw6SMXwfnYc8om2EM1FNA5pGW5mUfGZq8KJNnlylmjvk7/rlwXvBwCpYq97/0+cTqIU+QSGAL8Q2xjUils4=

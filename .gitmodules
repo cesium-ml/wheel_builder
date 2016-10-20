@@ -1,0 +1,6 @@
+[submodule "multibuild"]
+	path = multibuild
+	url = https://github.com/matthew-brett/multibuild.git
+[submodule "cesium"]
+	path = cesium
+	url = https://github.com/cesium-ml/cesium.git

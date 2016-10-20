@@ -5,7 +5,7 @@ env:
     - REPO_DIR=cesium
     - BUILD_COMMIT=v0.6.5
     - BUILD_DEPENDS="Cython numpy"
-    - TEST_DEPENDS="nosetests pytest"
+    - TEST_DEPENDS="nose"
     - PLAT=x86_64
     - UNICODE_WIDTH=32
     - WHEELHOUSE_UPLOADER_USERNAME=travis-worker

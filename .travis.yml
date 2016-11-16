@@ -9,8 +9,7 @@ env:
     - PLAT=x86_64
     - UNICODE_WIDTH=32
     - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
-    - secure:
-        "E+O2CWuv8TFtfa5pTzFES2ZtIWZ8xEo6/otSTT2tfOndWif5Fg5nILyzHxh3EZOw4xne/LoGl4kKQhDd/CLd61WGvk5db37DSSZt7B7GBPDdJXEkoWhrvhs/X6sfuu/Kb19qWmJgSfq1Zg+kXjM2ABwGhBLAfLp15TndrSOAUij7nhUN7lJazmaPdlujAGIUTVCjINy/r9SlFtAF20gVSuIpOslx7ZD49eTqXmZT/ZtfMsymQhY5EKMXxMNEgyCpecK5MEhNEzjqlnHdzVHiclgILbpDetpZGXf8oEWc+TKpVBUpNg++6MARBXPoSpK9GUB2kLJ+W9/P9CVwPt2lCjzwp33YAzjzUf0FPre6hdDYM1svn20RM0jtt0cMoIHyUKFc7LUK+F0aFxTH4gSduoyIpC+JBQOJkToZZWOv0kmLjJUkQPkpTA1Su2yyma+PYWayIeZk39YD8L6qQn3pAY5ppc/o9qnBuMk4g/CWTiCaFuHK2DnIBFK2VRhs/QUg8boQtuP69qfztX5UtUpCCPzv58MKYiMZM66InyV5BLD0kSornMGGdsPM4f9U9jEECHg31lP72DglN7jkHJdRLESTUw6SMXwfnYc8om2EM1FNA5pGW5mUfGZq8KJNnlylmjvk7/rlwXvBwCpYq97/0+cTqIU+QSGAL8Q2xjUils4="
+    - secure: "QxkHgR7WurJoefcHASQFwxdwUUZ5VgBOOKODA8QggU1YePj/t4h9sk5qKDSB8n6CfjY6Z/ZyVb0LSvew1F28QQodo+4Ixp1jMVK1aXOZe9MtDKEok/4WqySTHpCJwFTazYyU+25U1hvRALBzkCJybkOJ6myD50KkCqOi28XRnY+d2vUokDRFXFVLUFWBOaV/QqcZ9TerqGoihb68vkPnxOYFn4oTbmTWHBLQiwTNTJwttkK49dxL8JecQk9ydOWJ1Vf2U7L6aP4Yg3ZEg3GY6E1RpzJrLCaSi9JexUfuNWXPBXcEcW23Xb3RwZgyVxLeqt74Vncx2leXdkxugz12kVyoPhpTVB7zsVN1M7kp7Ze/23WDZq6dWLVOAYAJkkOOmaGguhj7uwY6Iw43UK2TxZzKxqSInGEGBqWVVEyQDsskKD85vOHOCIrETq4B7FPuSbwbpd0ktgCu4TB3SIlj5MP2vU1GGDHPRDtMh0zrBBbUipSsUrxeAtmMJQ3lyQIsLw/H5/mh29sl+0RAtUdmxMFICF7rqvJyNkO1Xg7umn3pJfMLT3Y9DpNiaqAnLY8EkRoefzO2uocRYbLyNNMTsqEIKwAlkddfjlpw6Mc4FMsCVFoD0zMDHslyeSJBqebk+o6qvnGDU0l3izCPTAXnJVeHolnom2OMpB4NUuXnENo="
 
 language: python
 python: 3.5
@@ -51,6 +50,6 @@ after_success:
     # This uploads the wheels to a Rackspace container owned by the
     # scikit-learn team, available at http://wheels.scipy.org.  See
     # above for information on using this account or choosing another.
-    - python -m wheelhouse_uploader upload --local-folder \
+    - python -m wheelhouse_uploader upload --local-folder
       ${TRAVIS_BUILD_DIR}/wheelhouse/ --no-update-index wheels
 

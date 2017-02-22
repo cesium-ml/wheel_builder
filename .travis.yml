@@ -35,6 +35,10 @@ matrix:
   - os: linux
     env:
       - MB_PYTHON_VERSION=3.5
+      
+  - os: linux
+    env:
+      - MB_PYTHON_VERSION=3.6
 
   - os: osx
     language: generic
@@ -50,6 +54,11 @@ matrix:
     language: generic
     env:
       - MB_PYTHON_VERSION=3.5
+      
+  - os: osx
+    language: generic
+    env:
+      - MB_PYTHON_VERSION=3.6
 
 before_install:
     - source multibuild/common_utils.sh

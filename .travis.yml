@@ -3,7 +3,7 @@
 env:
   global:
     - REPO_DIR=cesium
-    - BUILD_COMMIT=v0.9.3
+    - BUILD_COMMIT=v0.9.4
     - BUILD_DEPENDS="Cython numpy"
     - TEST_DEPENDS="pytest"
     - PLAT=x86_64
@@ -12,7 +12,7 @@ env:
     - secure: "QxkHgR7WurJoefcHASQFwxdwUUZ5VgBOOKODA8QggU1YePj/t4h9sk5qKDSB8n6CfjY6Z/ZyVb0LSvew1F28QQodo+4Ixp1jMVK1aXOZe9MtDKEok/4WqySTHpCJwFTazYyU+25U1hvRALBzkCJybkOJ6myD50KkCqOi28XRnY+d2vUokDRFXFVLUFWBOaV/QqcZ9TerqGoihb68vkPnxOYFn4oTbmTWHBLQiwTNTJwttkK49dxL8JecQk9ydOWJ1Vf2U7L6aP4Yg3ZEg3GY6E1RpzJrLCaSi9JexUfuNWXPBXcEcW23Xb3RwZgyVxLeqt74Vncx2leXdkxugz12kVyoPhpTVB7zsVN1M7kp7Ze/23WDZq6dWLVOAYAJkkOOmaGguhj7uwY6Iw43UK2TxZzKxqSInGEGBqWVVEyQDsskKD85vOHOCIrETq4B7FPuSbwbpd0ktgCu4TB3SIlj5MP2vU1GGDHPRDtMh0zrBBbUipSsUrxeAtmMJQ3lyQIsLw/H5/mh29sl+0RAtUdmxMFICF7rqvJyNkO1Xg7umn3pJfMLT3Y9DpNiaqAnLY8EkRoefzO2uocRYbLyNNMTsqEIKwAlkddfjlpw6Mc4FMsCVFoD0zMDHslyeSJBqebk+o6qvnGDU0l3izCPTAXnJVeHolnom2OMpB4NUuXnENo="
 
 language: python
-python: 3.5
+python: 3.6
 sudo: required
 dist: trusty
 services: docker
@@ -21,7 +21,7 @@ services: docker
 matrix:
   exclude:
   # Exclude the default Python 3.5 build
-  - python: 3.5
+  - python: 3.6
 
   include:
   - os: linux

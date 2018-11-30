@@ -3,7 +3,7 @@
 env:
   global:
     - REPO_DIR=cesium
-    - BUILD_COMMIT=v0.9.8
+    - BUILD_COMMIT=v0.9.9
     - BUILD_DEPENDS="Cython numpy"
     - TEST_DEPENDS="pytest"
     - PLAT=x86_64

@@ -3,7 +3,7 @@
 env:
   global:
     - REPO_DIR=cesium
-    - BUILD_COMMIT=v0.9.7
+    - BUILD_COMMIT=v0.9.8
     - BUILD_DEPENDS="Cython numpy"
     - TEST_DEPENDS="pytest"
     - PLAT=x86_64
@@ -30,10 +30,6 @@ matrix:
 
   - os: linux
     env:
-      - MB_PYTHON_VERSION=3.4
-
-  - os: linux
-    env:
       - MB_PYTHON_VERSION=3.5
 
   - os: linux
@@ -44,11 +40,6 @@ matrix:
     language: generic
     env:
       - MB_PYTHON_VERSION=2.7
-
-  - os: osx
-    language: generic
-    env:
-      - MB_PYTHON_VERSION=3.4
 
   - os: osx
     language: generic

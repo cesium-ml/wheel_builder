@@ -51,6 +51,22 @@ matrix:
     env:
       - MB_PYTHON_VERSION=3.6
 
+  - os: windows
+    language: generic
+    env:
+      - MB_PYTHON_VERSION=2.7
+
+  - os: windows
+    language: generic
+    env:
+      - MB_PYTHON_VERSION=3.5
+
+  - os: windows
+    language: generic
+    env:
+      - MB_PYTHON_VERSION=3.6
+
+
 before_install:
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh

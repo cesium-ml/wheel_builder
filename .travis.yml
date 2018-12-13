@@ -36,6 +36,10 @@ matrix:
     env:
       - MB_PYTHON_VERSION=3.6
 
+  - os: linux
+    env:
+      - MB_PYTHON_VERSION=3.7
+
   - os: osx
     language: generic
     env:
@@ -51,20 +55,10 @@ matrix:
     env:
       - MB_PYTHON_VERSION=3.6
 
-  - os: windows
+  - os: osx
     language: generic
     env:
-      - MB_PYTHON_VERSION=2.7
-
-  - os: windows
-    language: generic
-    env:
-      - MB_PYTHON_VERSION=3.5
-
-  - os: windows
-    language: generic
-    env:
-      - MB_PYTHON_VERSION=3.6
+      - MB_PYTHON_VERSION=3.7
 
 
 before_install:
